@@ -43,13 +43,12 @@ export default function Footer() {
           {/* Brand column */}
           <div>
             <NavLink to="/" className="inline-block mb-5 group">
-              <div className="bg-white rounded-xl px-4 py-2.5 transition-opacity group-hover:opacity-90">
-                <img
-                  src="./logo-tagline.png"
-                  alt="PepClip — The right message. From the right voice. At the right time."
-                  className="h-12 w-auto"
-                />
-              </div>
+              <img
+                src="./logo-tagline.png"
+                alt="PepClip — The right message. From the right voice. At the right time."
+                className="h-12 w-auto transition-opacity group-hover:opacity-85"
+                style={{ filter: 'drop-shadow(0 1px 3px rgba(255,255,255,0.18))' }}
+              />
             </NavLink>
             <p className="text-xs text-slate-500 leading-relaxed mb-6">
               Personalized video messages from athletes, coaches, and mentors who can reach the people you love.

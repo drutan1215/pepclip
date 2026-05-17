@@ -35,13 +35,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <NavLink to="/" className="flex items-center group">
-            <div className="bg-white rounded-xl px-3 py-1.5 transition-opacity group-hover:opacity-90">
-              <img
-                src="./logo-full.png"
-                alt="PepClip"
-                className="h-8 w-auto"
-              />
-            </div>
+            <img
+              src="./logo-full.png"
+              alt="PepClip"
+              className="h-8 w-auto transition-opacity group-hover:opacity-85"
+              style={{ filter: 'drop-shadow(0 1px 3px rgba(255,255,255,0.18))' }}
+            />
           </NavLink>
 
           {/* Desktop Nav */}
