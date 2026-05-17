@@ -27,32 +27,58 @@ const mentorTypes: MentorType[] = [
   'business-professional', 'teacher-educator', 'military-veteran', 'overcome-challenges',
 ];
 
+const categoryMatches: Record<string, string[]> = {
+  discipline: ['discipline', 'work-ethic'],
+  'school-motivation': ['school-motivation', 'test-motivation'],
+  'job-interview': ['job-interview', 'career'],
+};
+
+type ActiveFilter = {
+  key: 'category' | 'type' | 'price' | 'rating' | 'zip';
+  label: string;
+};
+
+const localScore = (mentorZip: string, selectedZip: string) => {
+  if (!selectedZip) return 0;
+  if (mentorZip === selectedZip) return 4;
+  if (mentorZip.slice(0, 3) === selectedZip.slice(0, 3)) return 3;
+  if (mentorZip.slice(0, 2) === selectedZip.slice(0, 2)) return 2;
+  if (mentorZip[0] === selectedZip[0]) return 1;
+  return 0;
+};
+
 export default function Browse() {
   const [searchParams] = useSearchParams();
   const initialCat = searchParams.get('cat') || '';
   const initialType = searchParams.get('type') || '';
+  const initialZip = searchParams.get('zip') || '';
   const isMatched = searchParams.get('matched') === 'true';
 
   const [search, setSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState(initialCat);
   const [selectedType, setSelectedType] = useState(initialType);
+  const [selectedZip, setSelectedZip] = useState(initialZip);
   const [maxPrice, setMaxPrice] = useState(500);
   const [minRating, setMinRating] = useState(0);
   const [sortBy, setSortBy] = useState('best-match');
   const [showFilters, setShowFilters] = useState(false);
 
-  const activeFilters: string[] = [];
-  if (selectedCat) activeFilters.push(categoryLabels[selectedCat] || selectedCat);
-  if (selectedType) activeFilters.push(mentorTypeLabels[selectedType] || selectedType);
-  if (maxPrice < 500) activeFilters.push(`Under $${maxPrice}`);
-  if (minRating > 0) activeFilters.push(`${minRating}★+`);
+  const activeFilters: ActiveFilter[] = [];
+  if (selectedCat) activeFilters.push({ key: 'category', label: categoryLabels[selectedCat] || selectedCat });
+  if (selectedType) activeFilters.push({ key: 'type', label: mentorTypeLabels[selectedType] || selectedType });
+  if (selectedZip) activeFilters.push({ key: 'zip', label: `Near ${selectedZip}` });
+  if (maxPrice < 500) activeFilters.push({ key: 'price', label: `Under $${maxPrice}` });
+  if (minRating > 0) activeFilters.push({ key: 'rating', label: `${minRating}★+` });
 
   const filtered = useMemo(() => {
     let result = mentors.filter(m => {
       if (search && !m.name.toLowerCase().includes(search.toLowerCase()) &&
           !m.currentRole.toLowerCase().includes(search.toLowerCase()) &&
           !m.bio.toLowerCase().includes(search.toLowerCase())) return false;
-      if (selectedCat && !m.categories.includes(selectedCat)) return false;
+      if (selectedCat) {
+        const matches = categoryMatches[selectedCat] || [selectedCat];
+        if (!matches.some(cat => m.categories.includes(cat))) return false;
+      }
       if (selectedType && m.mentorType !== selectedType) return false;
       if (m.basePrice > maxPrice) return false;
       if (m.rating < minRating) return false;
@@ -63,14 +89,29 @@ export default function Browse() {
     else if (sortBy === 'price-desc') result = [...result].sort((a, b) => b.basePrice - a.basePrice);
     else if (sortBy === 'rating') result = [...result].sort((a, b) => b.rating - a.rating);
     else if (sortBy === 'turnaround') result = [...result].sort((a, b) => a.basePrice - b.basePrice);
-    else result = [...result].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    else {
+      result = [...result].sort((a, b) => {
+        const locationRank = localScore(b.zipCode, selectedZip) - localScore(a.zipCode, selectedZip);
+        if (locationRank !== 0) return locationRank;
+        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+      });
+    }
 
     return result;
-  }, [search, selectedCat, selectedType, maxPrice, minRating, sortBy]);
+  }, [search, selectedCat, selectedType, selectedZip, maxPrice, minRating, sortBy]);
+
+  const clearFilter = (key: ActiveFilter['key']) => {
+    if (key === 'category') setSelectedCat('');
+    if (key === 'type') setSelectedType('');
+    if (key === 'zip') setSelectedZip('');
+    if (key === 'price') setMaxPrice(500);
+    if (key === 'rating') setMinRating(0);
+  };
 
   const clearAll = () => {
     setSelectedCat('');
     setSelectedType('');
+    setSelectedZip('');
     setMaxPrice(500);
     setMinRating(0);
     setSearch('');
@@ -93,6 +134,7 @@ export default function Browse() {
           <p className="text-slate-400">
             {filtered.length} mentor{filtered.length !== 1 ? 's' : ''} found
             {selectedCat ? ` for "${categoryLabels[selectedCat] || selectedCat}"` : ''}
+            {selectedZip ? ` near ${selectedZip}` : ''}
           </p>
         </div>
       </div>
@@ -139,10 +181,10 @@ export default function Browse() {
         {/* Active filter chips */}
         {activeFilters.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-5">
-            {activeFilters.map(f => (
-              <span key={f} className="inline-flex items-center gap-1.5 bg-orange-50 text-orange-700 border border-orange-200 text-xs font-medium px-3 py-1.5 rounded-full">
-                {f}
-                <X size={12} className="cursor-pointer" onClick={clearAll} />
+            {activeFilters.map(filter => (
+              <span key={filter.key} className="inline-flex items-center gap-1.5 bg-orange-50 text-orange-700 border border-orange-200 text-xs font-medium px-3 py-1.5 rounded-full">
+                {filter.label}
+                <X size={12} className="cursor-pointer" onClick={() => clearFilter(filter.key)} />
               </span>
             ))}
             <button onClick={clearAll} className="text-xs text-slate-500 hover:text-slate-700 underline underline-offset-2">

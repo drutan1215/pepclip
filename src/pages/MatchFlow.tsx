@@ -41,12 +41,12 @@ const messageOptions: Option[] = [
   { value: 'sports-motivation', label: 'Sports Motivation', icon: <Trophy size={20} /> },
   { value: 'confidence', label: 'Confidence', icon: <Star size={20} /> },
   { value: 'school-motivation', label: 'School / Test Motivation', icon: <BookOpen size={20} /> },
-  { value: 'discipline-work-ethic', label: 'Discipline / Work Ethic', icon: <Target size={20} /> },
+  { value: 'discipline', label: 'Discipline / Work Ethic', icon: <Target size={20} /> },
   { value: 'character-choices', label: 'Character / Choices', icon: <Heart size={20} /> },
   { value: 'vaping-drugs', label: 'Vaping / Drugs', icon: <AlertTriangle size={20} /> },
-  { value: 'trouble-at-school', label: 'Trouble at School', icon: <BookOpen size={20} /> },
-  { value: 'big-game-event', label: 'Big Game / Event', icon: <Flame size={20} /> },
-  { value: 'career-job-interview', label: 'Career / Job Interview', icon: <Briefcase size={20} /> },
+  { value: 'school-trouble', label: 'Trouble at School', icon: <BookOpen size={20} /> },
+  { value: 'big-game', label: 'Big Game / Event', icon: <Flame size={20} /> },
+  { value: 'job-interview', label: 'Career / Job Interview', icon: <Briefcase size={20} /> },
   { value: 'college-application', label: 'College Application', icon: <GraduationCap size={20} /> },
   { value: 'general-encouragement', label: 'General Encouragement', icon: <MessageCircle size={20} /> },
   { value: 'other', label: 'Other', icon: <FileText size={20} /> },
@@ -144,7 +144,7 @@ export default function MatchFlow() {
     if (step === 0) return !!answers.recipient;
     if (step === 1) return !!answers.age;
     if (step === 2) return !!answers.messageType;
-    if (step === 3) return localChoice !== null;
+    if (step === 3) return localChoice === 'yes' ? zipCode.length === 5 : localChoice !== null;
     if (step === 4) return !!answers.mentorType && !!answers.tone;
     return false;
   };
@@ -155,9 +155,11 @@ export default function MatchFlow() {
     } else {
       // Go to browse with query params
       const params = new URLSearchParams();
-      if (answers.messageType) params.set('cat', answers.messageType);
+      if (answers.messageType && answers.messageType !== 'other') params.set('cat', answers.messageType);
       if (answers.mentorType && answers.mentorType !== 'no-preference') params.set('type', answers.mentorType);
-      navigate(`/browse?${params.toString()}&matched=true`);
+      if (localChoice === 'yes' && zipCode) params.set('zip', zipCode);
+      params.set('matched', 'true');
+      navigate(`/browse?${params.toString()}`);
     }
   };
 
@@ -268,8 +270,9 @@ export default function MatchFlow() {
                   type="text"
                   placeholder="e.g. 44702"
                   value={zipCode}
-                  onChange={e => setZipCode(e.target.value)}
+                  onChange={e => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
                   maxLength={5}
+                  inputMode="numeric"
                   className="input-field max-w-xs"
                 />
               </div>

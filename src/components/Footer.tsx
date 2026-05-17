@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Clapperboard, Twitter, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Twitter, Instagram, Facebook, Youtube } from 'lucide-react';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -42,17 +42,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand column */}
           <div>
-            <NavLink to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                <Clapperboard size={16} className="text-white" />
+            <NavLink to="/" className="inline-block mb-5 group">
+              <div className="bg-white rounded-xl px-4 py-2.5 transition-opacity group-hover:opacity-90">
+                <img
+                  src="./logo-tagline.png"
+                  alt="PepClip — The right message. From the right voice. At the right time."
+                  className="h-12 w-auto"
+                />
               </div>
-              <span className="font-display font-bold text-white text-xl tracking-tight">
-                Pep<span className="text-orange-400">Clip</span>
-              </span>
             </NavLink>
-            <p className="text-sm leading-relaxed mb-5 text-slate-400">
-              The right message. From the right voice. At the right time.
-            </p>
             <p className="text-xs text-slate-500 leading-relaxed mb-6">
               Personalized video messages from athletes, coaches, and mentors who can reach the people you love.
             </p>

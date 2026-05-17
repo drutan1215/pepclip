@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Menu, X, Clapperboard } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -28,19 +28,20 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg' : 'bg-slate-900'
+        scrolled ? 'bg-[#101828]/95 backdrop-blur-md shadow-lg' : 'bg-[#101828]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center group-hover:bg-orange-400 transition-colors">
-              <Clapperboard size={16} className="text-white" />
+          <NavLink to="/" className="flex items-center group">
+            <div className="bg-white rounded-xl px-3 py-1.5 transition-opacity group-hover:opacity-90">
+              <img
+                src="./logo-full.png"
+                alt="PepClip"
+                className="h-8 w-auto"
+              />
             </div>
-            <span className="font-display font-bold text-white text-xl tracking-tight">
-              Pep<span className="text-orange-400">Clip</span>
-            </span>
           </NavLink>
 
           {/* Desktop Nav */}
@@ -74,7 +75,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-800 px-4 py-4 animate-fade-in">
+        <div className="md:hidden bg-[#101828] border-t border-slate-800 px-4 py-4 animate-fade-in">
           <div className="flex flex-col gap-4">
             {navLinks.map(link => (
               <NavLink
