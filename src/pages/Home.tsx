@@ -9,9 +9,9 @@ import MentorCard from '../components/MentorCard';
 import { getFeaturedMentors } from '../data/mentors';
 
 const categories = [
-  { icon: Trophy, label: 'Sports Motivation', color: 'from-orange-500 to-amber-500', path: '/browse?cat=sports-motivation' },
+  { icon: Trophy, label: 'Sports Motivation', color: 'from-[#2F80ED] to-[#1558AB]', path: '/browse?cat=sports-motivation' },
   { icon: Star, label: 'Confidence Boost', color: 'from-violet-500 to-purple-600', path: '/browse?cat=confidence' },
-  { icon: Flame, label: 'Big Game', color: 'from-red-500 to-orange-500', path: '/browse?cat=big-game' },
+  { icon: Flame, label: 'Big Game', color: 'from-red-500 to-red-700', path: '/browse?cat=big-game' },
   { icon: BookOpen, label: 'School Trouble', color: 'from-blue-500 to-cyan-500', path: '/browse?cat=school-trouble' },
   { icon: Heart, label: 'Better Choices', color: 'from-pink-500 to-rose-500', path: '/browse?cat=better-choices' },
   { icon: AlertTriangle, label: 'Vaping / Drugs', color: 'from-slate-600 to-slate-800', path: '/browse?cat=vaping-drugs' },
@@ -19,7 +19,7 @@ const categories = [
   { icon: FileText, label: 'Test Motivation', color: 'from-cyan-500 to-blue-500', path: '/browse?cat=test-motivation' },
   { icon: Briefcase, label: 'Job Interview', color: 'from-indigo-500 to-blue-600', path: '/browse?cat=job-interview' },
   { icon: GraduationCap, label: 'College Application', color: 'from-teal-500 to-green-600', path: '/browse?cat=college-application' },
-  { icon: Target, label: 'Discipline', color: 'from-amber-500 to-orange-600', path: '/browse?cat=discipline' },
+  { icon: Target, label: 'Discipline', color: 'from-amber-500 to-amber-700', path: '/browse?cat=discipline' },
   { icon: MessageCircle, label: 'General Pep Talk', color: 'from-rose-400 to-pink-600', path: '/browse?cat=general-encouragement' },
 ];
 
@@ -465,7 +465,7 @@ export default function Home() {
         <div
           className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: 'radial-gradient(circle, #f97316 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, #2F80ED 1px, transparent 1px)',
             backgroundSize: '28px 28px',
           }}
         />
@@ -489,12 +489,12 @@ export default function Home() {
       </section>
 
       {/* ── Final CTA ────────────────────────────────────── */}
-      <section className="py-24 bg-gradient-to-br from-orange-500 to-amber-500">
+      <section className="py-24 bg-gradient-to-br from-[#2F80ED] to-[#1558AB]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display font-bold text-4xl sm:text-5xl text-white mb-4">
             The right message.<br />From the right voice.
           </h2>
-          <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
+          <p className="text-white/80 text-lg mb-10 max-w-xl mx-auto">
             Find the mentor who can say what they need to hear, at the moment they need to hear it most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

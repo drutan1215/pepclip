@@ -62,11 +62,11 @@
   }
 
   .hero-gradient {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f2a47 100%);
+    background: linear-gradient(135deg, #101828 0%, #1a2535 60%, #0f1e36 100%);
   }
 
-  .orange-gradient {
-    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+  .blue-gradient {
+    background: linear-gradient(135deg, #2F80ED 0%, #5E9DF0 100%);
   }
 
   .scrollbar-hide {
@@ -94,7 +94,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #f97316;
+  background: #2F80ED;
   cursor: pointer;
   border: 2px solid white;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -104,7 +104,7 @@ input[type="range"]::-moz-range-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #f97316;
+  background: #2F80ED;
   cursor: pointer;
   border: 2px solid white;
 }

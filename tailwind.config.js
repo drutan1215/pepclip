@@ -6,6 +6,34 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        orange: {
+          50:  '#EBF3FD',
+          100: '#D7E8FB',
+          200: '#AECFF7',
+          300: '#86B6F4',
+          400: '#5E9DF0',
+          500: '#2F80ED',
+          600: '#1a6fd4',
+          700: '#1558AB',
+          800: '#0f428a',
+          900: '#0a2d61',
+          950: '#061e42',
+        },
+        green: {
+          50:  '#F0FCF4',
+          100: '#DFF7EA',
+          200: '#BFEFCD',
+          300: '#8FE0AE',
+          400: '#5ACF88',
+          500: '#27AE60',
+          600: '#1F8C4C',
+          700: '#176B3A',
+          800: '#0f4a28',
+          900: '#082e18',
+          950: '#041a0e',
+        },
+      },
       fontFamily: {
         display: ['Raleway', 'sans-serif'],
         body: ['DM Sans', 'sans-serif'],

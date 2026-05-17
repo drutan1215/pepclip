@@ -55,7 +55,7 @@ export default function BecomeaMentor() {
       {/* Hero */}
       <div className="bg-slate-900 py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'radial-gradient(circle, #f97316 1px, transparent 1px)', backgroundSize: '24px 24px' }}
+          style={{ backgroundImage: 'radial-gradient(circle, #2F80ED 1px, transparent 1px)', backgroundSize: '24px 24px' }}
         />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <p className="text-orange-400 font-display font-semibold text-sm uppercase tracking-widest mb-3">Join PepClip</p>
