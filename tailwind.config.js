@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
+        display: ['Raleway', 'sans-serif'],
         body: ['DM Sans', 'sans-serif'],
       },
       animation: {
