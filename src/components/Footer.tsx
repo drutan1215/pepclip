@@ -37,7 +37,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-400">
+    <footer className="bg-white border-t border-slate-100 text-slate-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand column */}
@@ -46,11 +46,10 @@ export default function Footer() {
               <img
                 src="./logo-tagline.png"
                 alt="PepClip — The right message. From the right voice. At the right time."
-                className="h-12 w-auto transition-opacity group-hover:opacity-85"
-                style={{ filter: 'drop-shadow(0 1px 3px rgba(255,255,255,0.18))' }}
+                className="h-14 w-auto transition-opacity group-hover:opacity-80"
               />
             </NavLink>
-            <p className="text-xs text-slate-500 leading-relaxed mb-6">
+            <p className="text-xs text-slate-400 leading-relaxed mb-6">
               Personalized video messages from athletes, coaches, and mentors who can reach the people you love.
             </p>
             {/* Social */}
@@ -59,7 +58,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-slate-700 hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors"
                 >
                   <Icon size={14} />
                 </a>
@@ -70,7 +69,7 @@ export default function Footer() {
           {/* Link columns */}
           {sections.map(section => (
             <div key={section.heading}>
-              <h4 className="font-display font-semibold text-white text-sm mb-4 uppercase tracking-widest">
+              <h4 className="font-display font-semibold text-slate-900 text-sm mb-4 uppercase tracking-widest">
                 {section.heading}
               </h4>
               <ul className="space-y-2.5">
@@ -78,7 +77,7 @@ export default function Footer() {
                   <li key={link.to}>
                     <NavLink
                       to={link.to}
-                      className="text-sm text-slate-400 hover:text-orange-400 transition-colors"
+                      className="text-sm text-slate-500 hover:text-orange-500 transition-colors"
                     >
                       {link.label}
                     </NavLink>
@@ -90,14 +89,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-500">
+        <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-400">
             © {year} PepClip, Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <NavLink to="/privacy" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Privacy</NavLink>
-            <NavLink to="/terms" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Terms</NavLink>
-            <NavLink to="/safety" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Safety</NavLink>
+            <NavLink to="/privacy" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">Privacy</NavLink>
+            <NavLink to="/terms" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">Terms</NavLink>
+            <NavLink to="/safety" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">Safety</NavLink>
           </div>
         </div>
       </div>

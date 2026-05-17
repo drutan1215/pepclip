@@ -22,13 +22,13 @@ export default function Navbar() {
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `text-sm font-medium transition-colors duration-150 ${
-      isActive ? 'text-orange-400' : 'text-slate-300 hover:text-white'
+      isActive ? 'text-orange-500' : 'text-slate-600 hover:text-slate-900'
     }`;
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#101828]/95 backdrop-blur-md shadow-lg' : 'bg-[#101828]'
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300 ${
+        scrolled ? 'shadow-md' : 'border-b border-slate-100'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,8 +38,7 @@ export default function Navbar() {
             <img
               src="./logo-full.png"
               alt="PepClip"
-              className="h-8 w-auto transition-opacity group-hover:opacity-85"
-              style={{ filter: 'drop-shadow(0 1px 3px rgba(255,255,255,0.18))' }}
+              className="h-9 w-auto transition-opacity group-hover:opacity-80"
             />
           </NavLink>
 
@@ -65,7 +64,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 text-slate-300 hover:text-white transition-colors"
+            className="md:hidden p-2 text-slate-500 hover:text-slate-900 transition-colors"
           >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -74,7 +73,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-[#101828] border-t border-slate-800 px-4 py-4 animate-fade-in">
+        <div className="md:hidden bg-white border-t border-slate-100 px-4 py-4 animate-fade-in">
           <div className="flex flex-col gap-4">
             {navLinks.map(link => (
               <NavLink
