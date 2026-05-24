@@ -43,36 +43,31 @@ export default function BecomeaMentor() {
 
     const raw = Object.fromEntries(new FormData(formRef.current).entries());
 
+    // Keys are prefixed with descending numbers so Pabbly's Z-to-A
+    // alphabetical sort produces the correct form field order in the sheet.
     const payload: Record<string, unknown> = {
-      // Basic Information
-      first_name:             raw.first_name ?? '',
-      last_name:              raw.last_name ?? '',
-      email:                  raw.email ?? '',
-      phone:                  raw.phone ?? '',
-      city_state:             raw.city_state ?? '',
-      zip:                    raw.zip ?? '',
-      // Background
-      current_role:           raw.current_role ?? '',
-      background:             raw.background ?? '',
-      best_suited_for:        raw.best_suited_for ?? '',
-      // Topics & Age Groups
-      topics:                 selectedTopics.join(', '),
-      age_groups:             selectedAges.join(', '),
-      // Preferences
-      open_to_rush:           raw.open_to_rush ? 'Yes' : 'No',
-      interested_in_local:    raw.interested_in_local ? 'Yes' : 'No',
-      agreed_to_turnaround:   raw.agreed_to_turnaround ? 'Yes' : 'No',
-      agreed_to_guidelines:   raw.agreed_to_guidelines ? 'Yes' : 'No',
-      // Social Media
-      instagram:              raw.instagram ?? '',
-      twitter:                raw.twitter ?? '',
-      tiktok:                 raw.tiktok ?? '',
-      youtube:                raw.youtube ?? '',
-      // Topics to avoid
-      topics_to_avoid:        raw.topics_to_avoid ?? '',
-      // Meta
-      form_source:            'Become a Member',
-      submitted_at:           new Date().toISOString(),
+      '22_first_name':           raw.first_name ?? '',
+      '21_last_name':            raw.last_name ?? '',
+      '20_email':                raw.email ?? '',
+      '19_phone':                raw.phone ?? '',
+      '18_city_state':           raw.city_state ?? '',
+      '17_zip':                  raw.zip ?? '',
+      '16_current_role':         raw.current_role ?? '',
+      '15_background':           raw.background ?? '',
+      '14_best_suited_for':      raw.best_suited_for ?? '',
+      '13_topics':               selectedTopics.join(', '),
+      '12_age_groups':           selectedAges.join(', '),
+      '11_open_to_rush':         raw.open_to_rush ? 'Yes' : 'No',
+      '10_interested_in_local':  raw.interested_in_local ? 'Yes' : 'No',
+      '09_agreed_to_turnaround': raw.agreed_to_turnaround ? 'Yes' : 'No',
+      '08_agreed_to_guidelines': raw.agreed_to_guidelines ? 'Yes' : 'No',
+      '07_instagram':            raw.instagram ?? '',
+      '06_twitter':              raw.twitter ?? '',
+      '05_tiktok':               raw.tiktok ?? '',
+      '04_youtube':              raw.youtube ?? '',
+      '03_topics_to_avoid':      raw.topics_to_avoid ?? '',
+      '02_form_source':          'Become a Member',
+      '01_submitted_at':         new Date().toISOString(),
     };
 
     try {
