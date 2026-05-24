@@ -55,11 +55,10 @@ export default function BecomeaMentor() {
       best_suited_for:      raw.best_suited_for ?? '',
       topics:               selectedTopics.join(', '),
       age_groups:           selectedAges.join(', '),
-      base_price:           raw.base_price ?? '',
-      turnaround:           raw.turnaround ?? '',
-      open_to_rush:         raw.open_to_rush ? 'Yes' : 'No',
-      interested_in_local:  raw.interested_in_local ? 'Yes' : 'No',
-      agreed_to_guidelines: raw.agreed_to_guidelines ? 'Yes' : 'No',
+      open_to_rush:           raw.open_to_rush ? 'Yes' : 'No',
+      interested_in_local:    raw.interested_in_local ? 'Yes' : 'No',
+      agreed_to_turnaround:   raw.agreed_to_turnaround ? 'Yes' : 'No',
+      agreed_to_guidelines:   raw.agreed_to_guidelines ? 'Yes' : 'No',
       instagram:            raw.instagram ?? '',
       twitter:              raw.twitter ?? '',
       tiktok:               raw.tiktok ?? '',
@@ -268,17 +267,7 @@ export default function BecomeaMentor() {
           {/* Preferences */}
           <div>
             <h3 className="font-display font-bold text-lg text-slate-900 mb-4 pb-2 border-b border-slate-100">Preferences</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Base Price You'd Charge</label>
-                <input type="text" name="base_price" placeholder="e.g. $50, $100, $250" className="input-field" />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Standard Turnaround</label>
-                <input type="text" name="turnaround" placeholder="e.g. 48 hours, 3 days" className="input-field" />
-              </div>
-            </div>
-            <div className="mt-4 space-y-2">
+            <div className="space-y-2">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" name="open_to_rush" value="yes" className="mt-0.5 accent-orange-500" />
                 <span className="text-sm text-slate-600">I'm open to rush requests (extra fee applies)</span>
@@ -286,6 +275,10 @@ export default function BecomeaMentor() {
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" name="interested_in_local" value="yes" className="mt-0.5 accent-orange-500" />
                 <span className="text-sm text-slate-600">I'm interested in local requests from my area</span>
+              </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" name="agreed_to_turnaround" value="yes" required className="mt-0.5 accent-orange-500" />
+                <span className="text-sm text-slate-600">I agree to complete video requests within 48 hours *</span>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" name="agreed_to_guidelines" value="yes" required className="mt-0.5 accent-orange-500" />
