@@ -27,7 +27,7 @@ function ScrollToTop() {
   return null;
 }
 
-const basename = import.meta.env.DEV ? '/' : '/pepclip';
+const basename = '/';
 
 export default function App() {
   return (

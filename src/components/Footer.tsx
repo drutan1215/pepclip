@@ -44,7 +44,7 @@ export default function Footer() {
           <div>
             <NavLink to="/" className="inline-block mb-5 group">
               <img
-                src={import.meta.env.BASE_URL + 'logo-tagline.png'}
+                src="/logo-tagline.png"
                 alt="PepClip — The right message. From the right voice. At the right time."
                 className="h-14 w-auto transition-opacity group-hover:opacity-80"
               />
