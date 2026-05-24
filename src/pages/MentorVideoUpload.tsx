@@ -1,7 +1,7 @@
 import { ArrowRight, Video, Lightbulb, Clock, Smartphone } from 'lucide-react';
 import SEO from '../components/SEO';
 
-const DEFTFORM_URL = 'https://deftform.com/f/Nr1nud';
+const DEFTFORM_URL = 'https://deftform.com/f/pepclip-mentor-intro-video-Nr1nud';
 
 const tips = [
   { icon: Clock, text: 'Keep it 60–90 seconds — focused and authentic beats long and polished' },
