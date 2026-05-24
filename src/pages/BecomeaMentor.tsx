@@ -44,28 +44,35 @@ export default function BecomeaMentor() {
     const raw = Object.fromEntries(new FormData(formRef.current).entries());
 
     const payload: Record<string, unknown> = {
-      first_name:           raw.first_name ?? '',
-      last_name:            raw.last_name ?? '',
-      email:                raw.email ?? '',
-      phone:                raw.phone ?? '',
-      city_state:           raw.city_state ?? '',
-      zip:                  raw.zip ?? '',
-      current_role:         raw.current_role ?? '',
-      background:           raw.background ?? '',
-      best_suited_for:      raw.best_suited_for ?? '',
-      topics:               selectedTopics.join(', '),
-      age_groups:           selectedAges.join(', '),
+      // Basic Information
+      first_name:             raw.first_name ?? '',
+      last_name:              raw.last_name ?? '',
+      email:                  raw.email ?? '',
+      phone:                  raw.phone ?? '',
+      city_state:             raw.city_state ?? '',
+      zip:                    raw.zip ?? '',
+      // Background
+      current_role:           raw.current_role ?? '',
+      background:             raw.background ?? '',
+      best_suited_for:        raw.best_suited_for ?? '',
+      // Topics & Age Groups
+      topics:                 selectedTopics.join(', '),
+      age_groups:             selectedAges.join(', '),
+      // Preferences
       open_to_rush:           raw.open_to_rush ? 'Yes' : 'No',
       interested_in_local:    raw.interested_in_local ? 'Yes' : 'No',
       agreed_to_turnaround:   raw.agreed_to_turnaround ? 'Yes' : 'No',
       agreed_to_guidelines:   raw.agreed_to_guidelines ? 'Yes' : 'No',
-      instagram:            raw.instagram ?? '',
-      twitter:              raw.twitter ?? '',
-      tiktok:               raw.tiktok ?? '',
-      youtube:              raw.youtube ?? '',
-      topics_to_avoid:      raw.topics_to_avoid ?? '',
-      form_source:          'Become a Member',
-      submitted_at:         new Date().toISOString(),
+      // Social Media
+      instagram:              raw.instagram ?? '',
+      twitter:                raw.twitter ?? '',
+      tiktok:                 raw.tiktok ?? '',
+      youtube:                raw.youtube ?? '',
+      // Topics to avoid
+      topics_to_avoid:        raw.topics_to_avoid ?? '',
+      // Meta
+      form_source:            'Become a Member',
+      submitted_at:           new Date().toISOString(),
     };
 
     try {
