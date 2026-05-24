@@ -36,7 +36,7 @@ export default function Navbar() {
           {/* Logo */}
           <NavLink to="/" className="flex items-center group">
             <img
-              src="./logo-full.png"
+              src={import.meta.env.BASE_URL + 'logo-full.png'}
               alt="PepClip"
               className="h-9 w-auto transition-opacity group-hover:opacity-80"
             />

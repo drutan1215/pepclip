@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -26,9 +26,11 @@ function ScrollToTop() {
   return null;
 }
 
+const basename = import.meta.env.DEV ? '/' : '/pepclip';
+
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={basename}>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar />
@@ -51,6 +53,6 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

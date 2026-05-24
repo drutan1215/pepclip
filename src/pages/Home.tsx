@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 import {
   Trophy, Star, Flame, BookOpen, Heart, AlertTriangle,
   Clock, FileText, Briefcase, GraduationCap, Target,
@@ -53,6 +54,7 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden">
+      <SEO title="PepClip — The Right Message. From the Right Voice." description="Personalized video messages from athletes, coaches, and mentors who can reach the people you love. Find the right voice for sports motivation, school struggles, big moments, and more." />
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="hero-gradient min-h-screen flex items-center pt-16 relative overflow-hidden">
         {/* Background dots */}

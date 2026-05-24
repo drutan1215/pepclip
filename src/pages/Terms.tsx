@@ -1,4 +1,5 @@
 import { CheckCircle, FileText, Shield, CreditCard, Users } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const terms = [
   {
@@ -26,6 +27,7 @@ const terms = [
 export default function Terms() {
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Terms of Service — PepClip" description="The basic rules for using PepClip as a customer, recipient, or mentor. Simple and straightforward." />
       <div className="bg-slate-900 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h1 className="font-display font-bold text-4xl text-white mb-3">Terms of Service</h1>

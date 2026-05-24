@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import SEO from '../components/SEO';
 import { useSearchParams } from 'react-router-dom';
 import { Search, SlidersHorizontal, X, Star, ChevronDown } from 'lucide-react';
 import MentorCard from '../components/MentorCard';
@@ -119,6 +120,7 @@ export default function Browse() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Browse Mentors — PepClip" description="Browse and filter PepClip mentors by topic, type, price, and rating. Find athletes, coaches, educators, veterans, and professionals ready to send a personalized video." />
       {/* Page header */}
       <div className="bg-slate-900 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

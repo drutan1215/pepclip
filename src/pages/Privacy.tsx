@@ -1,4 +1,5 @@
 import { Mail, Shield, Lock, Eye, Trash2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const sections = [
   {
@@ -26,6 +27,7 @@ const sections = [
 export default function Privacy() {
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Privacy Policy — PepClip" description="How PepClip collects, uses, and protects your personal information. Clear and straightforward." />
       <div className="bg-slate-900 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h1 className="font-display font-bold text-4xl text-white mb-3">Privacy Policy</h1>

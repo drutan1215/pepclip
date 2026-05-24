@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, DollarSign, Users, Star, Clock } from 'lucide-react';
+import SEO from '../components/SEO';
+
+const PABBLY_WEBHOOK = 'https://connect.pabbly.com/webhook-listener/webhook/IjU3NjcwNTY5MDYzZTA0M2Q1MjZmNTUzMiI_3D_pc/IjU3NjcwNTZlMDYzMTA0MzI1MjY1NTUzMjUxM2Ii_pc';
 
 const benefits = [
   { icon: DollarSign, title: 'Earn on your schedule', desc: 'Set your own pricing and availability. Accept requests when it works for you.' },
@@ -19,18 +23,72 @@ const ageGroups = ['Under 10', '10–12', '13–15', '16–18', '19–24', '25+'
 
 export default function BecomeaMentor() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [selectedAges, setSelectedAges] = useState<string[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const toggleTopic = (t: string) =>
     setSelectedTopics(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
   const toggleAge = (a: string) =>
     setSelectedAges(prev => prev.includes(a) ? prev.filter(x => x !== a) : [...prev, a]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!formRef.current) return;
+
+    setSubmitting(true);
+    setSubmitError('');
+
+    const raw = Object.fromEntries(new FormData(formRef.current).entries());
+
+    const payload: Record<string, unknown> = {
+      first_name:           raw.first_name ?? '',
+      last_name:            raw.last_name ?? '',
+      email:                raw.email ?? '',
+      phone:                raw.phone ?? '',
+      city_state:           raw.city_state ?? '',
+      zip:                  raw.zip ?? '',
+      current_role:         raw.current_role ?? '',
+      background:           raw.background ?? '',
+      best_suited_for:      raw.best_suited_for ?? '',
+      topics:               selectedTopics.join(', '),
+      age_groups:           selectedAges.join(', '),
+      base_price:           raw.base_price ?? '',
+      turnaround:           raw.turnaround ?? '',
+      open_to_rush:         raw.open_to_rush ? 'Yes' : 'No',
+      interested_in_local:  raw.interested_in_local ? 'Yes' : 'No',
+      agreed_to_guidelines: raw.agreed_to_guidelines ? 'Yes' : 'No',
+      instagram:            raw.instagram ?? '',
+      twitter:              raw.twitter ?? '',
+      tiktok:               raw.tiktok ?? '',
+      youtube:              raw.youtube ?? '',
+      topics_to_avoid:      raw.topics_to_avoid ?? '',
+      form_source:          'Become a Member',
+      submitted_at:         new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch(PABBLY_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      formRef.current.reset();
+      setSelectedTopics([]);
+      setSelectedAges([]);
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error('Mentor application webhook error:', err);
+      setSubmitError('Something went wrong. Please try again or email us directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -44,7 +102,7 @@ export default function BecomeaMentor() {
           <p className="text-slate-500 mb-8 leading-relaxed">
             Thank you for applying to become a PepClip mentor. Our team will review your application and reach out within 3–5 business days with next steps, including instructions for your intro video and profile setup.
           </p>
-          <a href="#/" className="btn-primary">Back to Home</a>
+          <Link to="/" className="btn-primary">Back to Home</Link>
         </div>
       </div>
     );
@@ -52,6 +110,7 @@ export default function BecomeaMentor() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Become a Mentor — PepClip" description="Apply to join PepClip as a mentor. Athletes, coaches, educators, and professionals can earn money recording personalized video messages for people who need their voice." />
       {/* Hero */}
       <div className="bg-slate-900 py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5"
@@ -92,7 +151,7 @@ export default function BecomeaMentor() {
           <p className="text-slate-500">We review all applications and reach out within 3–5 days.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 space-y-7">
+        <form id="becomeMemberForm" ref={formRef} onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 space-y-7">
           {/* Basic info */}
           <div>
             <h3 className="font-display font-bold text-lg text-slate-900 mb-4 pb-2 border-b border-slate-100">
@@ -101,27 +160,27 @@ export default function BecomeaMentor() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">First Name *</label>
-                <input required type="text" placeholder="Your first name" className="input-field" />
+                <input required type="text" name="first_name" placeholder="Your first name" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Last Name *</label>
-                <input required type="text" placeholder="Your last name" className="input-field" />
+                <input required type="text" name="last_name" placeholder="Your last name" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Email *</label>
-                <input required type="email" placeholder="you@example.com" className="input-field" />
+                <input required type="email" name="email" placeholder="you@example.com" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Phone</label>
-                <input type="tel" placeholder="(555) 000-0000" className="input-field" />
+                <input type="tel" name="phone" placeholder="(555) 000-0000" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">City, State *</label>
-                <input required type="text" placeholder="e.g. Canton, OH" className="input-field" />
+                <input required type="text" name="city_state" placeholder="e.g. Canton, OH" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">ZIP Code</label>
-                <input type="text" maxLength={5} placeholder="ZIP" className="input-field" />
+                <input type="text" name="zip" maxLength={5} placeholder="ZIP" className="input-field" />
               </div>
             </div>
           </div>
@@ -134,7 +193,7 @@ export default function BecomeaMentor() {
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Current Role / Title *</label>
-                <input required type="text" placeholder="e.g. Former NFL player, High School Coach, Entrepreneur..." className="input-field" />
+                <input required type="text" name="current_role" placeholder="e.g. Former NFL player, High School Coach, Entrepreneur..." className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">
@@ -142,6 +201,7 @@ export default function BecomeaMentor() {
                 </label>
                 <textarea
                   required
+                  name="background"
                   rows={4}
                   placeholder="Tell us about your achievements, experience, and what makes your story compelling to others. What have you accomplished? What have you overcome?"
                   className="input-field resize-none"
@@ -152,6 +212,7 @@ export default function BecomeaMentor() {
                   Who are you best suited to help?
                 </label>
                 <textarea
+                  name="best_suited_for"
                   rows={2}
                   placeholder="Describe who would benefit most from hearing from you — athletes, teens, young adults, people in recovery, first-gen students, etc."
                   className="input-field resize-none"
@@ -210,24 +271,26 @@ export default function BecomeaMentor() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Base Price You'd Charge</label>
-                <input type="text" placeholder="e.g. $50, $100, $250" className="input-field" />
+                <input type="text" name="base_price" placeholder="e.g. $50, $100, $250" className="input-field" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Standard Turnaround</label>
-                <input type="text" placeholder="e.g. 48 hours, 3 days" className="input-field" />
+                <input type="text" name="turnaround" placeholder="e.g. 48 hours, 3 days" className="input-field" />
               </div>
             </div>
             <div className="mt-4 space-y-2">
-              {[
-                { id: 'rush', label: 'I\'m open to rush requests (extra fee applies)' },
-                { id: 'local', label: 'I\'m interested in local requests from my area' },
-                { id: 'guidelines', label: 'I agree to PepClip\'s content and safety guidelines *', required: true },
-              ].map(({ id, label, required }) => (
-                <label key={id} className="flex items-start gap-3 cursor-pointer">
-                  <input type="checkbox" className="mt-0.5 accent-orange-500" required={required} />
-                  <span className="text-sm text-slate-600">{label}</span>
-                </label>
-              ))}
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" name="open_to_rush" value="yes" className="mt-0.5 accent-orange-500" />
+                <span className="text-sm text-slate-600">I'm open to rush requests (extra fee applies)</span>
+              </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" name="interested_in_local" value="yes" className="mt-0.5 accent-orange-500" />
+                <span className="text-sm text-slate-600">I'm interested in local requests from my area</span>
+              </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" name="agreed_to_guidelines" value="yes" required className="mt-0.5 accent-orange-500" />
+                <span className="text-sm text-slate-600">I agree to PepClip's content and safety guidelines *</span>
+              </label>
             </div>
           </div>
 
@@ -235,12 +298,22 @@ export default function BecomeaMentor() {
           <div>
             <h3 className="font-display font-bold text-lg text-slate-900 mb-4 pb-2 border-b border-slate-100">Social Media (optional)</h3>
             <div className="grid sm:grid-cols-2 gap-4">
-              {['Instagram', 'Twitter / X', 'TikTok', 'YouTube'].map(s => (
-                <div key={s}>
-                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">{s}</label>
-                  <input type="text" placeholder={`@${s.split(' ')[0].toLowerCase()}`} className="input-field" />
-                </div>
-              ))}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Instagram</label>
+                <input type="text" name="instagram" placeholder="@instagram" className="input-field" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Twitter / X</label>
+                <input type="text" name="twitter" placeholder="@twitter" className="input-field" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">TikTok</label>
+                <input type="text" name="tiktok" placeholder="@tiktok" className="input-field" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">YouTube</label>
+                <input type="text" name="youtube" placeholder="@youtube" className="input-field" />
+              </div>
             </div>
           </div>
 
@@ -248,14 +321,26 @@ export default function BecomeaMentor() {
           <div>
             <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1.5">Topics to NOT send you requests for</label>
             <textarea
+              name="topics_to_avoid"
               rows={2}
               placeholder="Are there any topics you're not comfortable speaking about? List them here."
               className="input-field resize-none"
             />
           </div>
 
-          <button type="submit" className="btn-primary w-full justify-center text-base py-4">
-            Submit Mentor Application <ArrowRight size={18} />
+          {/* Error message */}
+          {submitError && (
+            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+              {submitError}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="btn-primary w-full justify-center text-base py-4 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {submitting ? 'Submitting…' : (<>Submit Mentor Application <ArrowRight size={18} /></>)}
           </button>
         </form>
       </div>

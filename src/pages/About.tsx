@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Heart, Target, Lightbulb } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const values = [
   {
@@ -27,6 +28,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="About PepClip — The Right Message. From the Right Voice." description="Learn why PepClip was built and what we believe. We help people find the right voice for the message that matters — for sports, school, life, and big moments." />
       {/* Hero */}
       <div className="bg-slate-900 py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">

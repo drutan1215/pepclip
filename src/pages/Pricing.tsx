@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Check, ArrowRight, Zap, Clock, Star } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const tiers = [
   {
@@ -87,6 +88,7 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Pricing — PepClip" description="Simple, transparent pricing for PepClip videos. Local mentors from $25, college athletes from $75, and pro athletes from $150. Rush delivery available." />
       {/* Hero */}
       <div className="bg-slate-900 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">

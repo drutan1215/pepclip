@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 import {
   MapPin, Clock, Star, Play, Check, ArrowLeft,
   Upload, Calendar, ChevronDown, ChevronUp, Shield
@@ -114,6 +115,10 @@ export default function MentorProfile() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO
+        title={`${mentor.name} — PepClip Mentor`}
+        description={`Book a personalized video message from ${mentor.name}, ${mentor.currentRole}. ${mentor.bio.slice(0, 120)}...`}
+      />
       {/* Hero */}
       <div className="bg-slate-900 relative overflow-hidden">
         <div className="absolute inset-0">

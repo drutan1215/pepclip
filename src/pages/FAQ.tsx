@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FAQItem {
@@ -119,6 +121,7 @@ function Accordion({ items }: AccordionProps) {
 export default function FAQ() {
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="FAQ — PepClip" description="Answers to common questions about PepClip — how it works, pricing, video personalization, and how to become a mentor." />
       <div className="bg-slate-900 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h1 className="font-display font-bold text-4xl text-white mb-3">Frequently Asked Questions</h1>
@@ -143,12 +146,9 @@ export default function FAQ() {
 
         <div className="text-center pt-4">
           <p className="text-slate-500 mb-4">Still have questions?</p>
-          <a
-            href="#/contact"
-            className="btn-primary"
-          >
+          <Link to="/contact" className="btn-primary">
             Contact Us
-          </a>
+          </Link>
         </div>
       </div>
     </div>

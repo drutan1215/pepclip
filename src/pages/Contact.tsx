@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, MessageSquare, CheckCircle, Shield, HelpCircle, Users } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const reasons = [
   { value: 'general', label: 'General Question' },
@@ -15,7 +17,7 @@ const contactOptions = [
     icon: HelpCircle,
     title: 'FAQ',
     desc: 'Find quick answers to common questions about ordering, delivery, and mentors.',
-    link: '#/faq',
+    link: '/faq',
     linkLabel: 'Browse FAQ',
     color: 'bg-blue-100 text-blue-600',
   },
@@ -23,7 +25,7 @@ const contactOptions = [
     icon: Shield,
     title: 'Safety Concerns',
     desc: 'Report a video, content concern, or safety issue. Reviewed by a human on our team.',
-    link: '#/safety',
+    link: '/safety',
     linkLabel: 'Safety Guidelines',
     color: 'bg-green-100 text-green-600',
   },
@@ -31,7 +33,7 @@ const contactOptions = [
     icon: Users,
     title: 'Become a Mentor',
     desc: 'Interested in becoming a PepClip mentor? Start your application here.',
-    link: '#/become-a-mentor',
+    link: '/become-a-mentor',
     linkLabel: 'Apply Now',
     color: 'bg-orange-100 text-orange-600',
   },
@@ -47,6 +49,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Contact Us — PepClip" description="Get in touch with PepClip for order help, mentor questions, safety concerns, or partnership opportunities. We respond quickly." />
       {/* Hero */}
       <div className="bg-slate-900 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -67,9 +70,9 @@ export default function Contact() {
               </div>
               <h3 className="font-display font-bold text-slate-900 mb-2">{title}</h3>
               <p className="text-slate-500 text-sm mb-4 leading-relaxed">{desc}</p>
-              <a href={link} className="text-orange-500 hover:text-orange-600 text-sm font-semibold">
+              <Link to={link} className="text-orange-500 hover:text-orange-600 text-sm font-semibold">
                 {linkLabel} →
-              </a>
+              </Link>
             </div>
           ))}
         </div>

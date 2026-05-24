@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { Shield, CheckCircle, AlertTriangle, Heart, Users, Flag } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const principles = [
   {
@@ -64,6 +66,7 @@ const guidelines = [
 export default function Safety() {
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Safety & Guidelines — PepClip" description="How PepClip protects both recipients and mentors. Our core principles, prohibited content policy, and how to report a concern." />
       {/* Hero */}
       <div className="bg-slate-900 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -136,9 +139,9 @@ export default function Safety() {
           <p className="text-slate-500 text-sm leading-relaxed mb-5">
             If you receive a video or see content that you believe violates our guidelines, please contact us immediately. Every report is reviewed by a human member of our trust and safety team.
           </p>
-          <a href="#/contact" className="btn-primary">
+          <Link to="/contact" className="btn-primary">
             Contact Safety Team
-          </a>
+          </Link>
         </div>
 
         <p className="text-xs text-slate-400 text-center leading-relaxed">

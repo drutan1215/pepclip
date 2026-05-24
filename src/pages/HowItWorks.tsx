@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, MessageSquare, Search, FileText, Video, Share2, CheckCircle } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const steps = [
   {
@@ -84,6 +85,7 @@ export default function HowItWorks() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="How It Works — PepClip" description="Learn how PepClip works. Answer a few questions, choose a mentor, share your details, and receive a personalized video — typically in 2–5 days." />
       {/* Hero */}
       <div className="bg-slate-900 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">

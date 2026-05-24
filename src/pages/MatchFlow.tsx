@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 import {
   Users, Baby, GraduationCap, Briefcase, User, Heart,
   Trophy, Star, BookOpen, Target, AlertTriangle, Flame,
@@ -165,6 +166,7 @@ export default function MatchFlow() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16">
+      <SEO title="Find the Right Voice — PepClip" description="Answer a few guided questions and we'll match you with the perfect mentor for a personalized video message. Takes less than 2 minutes." />
       {/* Header */}
       <div className="bg-white border-b border-slate-100 sticky top-16 z-20">
         <div className="max-w-3xl mx-auto px-4 py-4">
